@@ -1,0 +1,12 @@
+apiVersion: 1
+
+providers:
+  - name: 'E-Commerce Streaming'
+    orgId: 1
+    folder: 'E-Commerce'
+    folderUid: 'ecommerce'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards
