@@ -19,7 +19,7 @@ class FunnelProcessor:
     ) -> DataFrame:
         
         self.logger.info("Processing Real-Time Funnel...")
-
+#drop duplicate untuk mencegah duplicate data
         result = orders_df \
             .dropDuplicates(["event_id"]) \
             .groupBy(window("event_timestamp", self.window_duration, self.slide_duration)).agg(
@@ -30,8 +30,8 @@ class FunnelProcessor:
                 
                 sum(when(
                     col("order_status").isin("delivered", "shipped", "invoiced", "processing"),
-                    1
-                ).otherwise(0)).alias("orders_with_payment"),
+                    1 
+                ).otherwise(0)).alias("orders_with_payment"), #when otherwise untuk handling missing data
                 
                 sum(when(col("order_status") == "canceled", 1).otherwise(0)).alias("canceled_orders"),
                 
